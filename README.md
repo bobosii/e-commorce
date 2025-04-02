@@ -1,4 +1,5 @@
 # E-Commerce
 
-## I developed this project to improve my dominance in Java SpringBoot.
-## Also this project preliminary prepare for my Advance Java course projects which i took 2025 spring semester.
+I developed this project to enhance my proficiency in Java Spring Boot.
+Additionally, this project serves as a preliminary preparation for my Advanced Java course projects,
+which I am taking in the Spring 2025 semester.
