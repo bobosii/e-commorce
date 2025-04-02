@@ -2,6 +2,7 @@ package dev.emir.e_commerce.core.config.modelMapper;
 
 import dev.emir.e_commerce.core.result.ResultData;
 import dev.emir.e_commerce.core.utilies.Messages;
+import dev.emir.e_commerce.core.utilies.ResultHelper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -22,8 +23,6 @@ public class GlobalExceptionHandler {
                 map(FieldError::getDefaultMessage).
                 collect(Collectors.toList());
 
-        ResultData<List<String>> resultData = new ResultData<>(false, Messages.VALIDATE_ERROR,"400",validationErrorList);
-
-        return new ResponseEntity<>(resultData, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ResultHelper.validateError(validationErrorList), HttpStatus.BAD_REQUEST);
     }
 }
