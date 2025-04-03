@@ -2,6 +2,7 @@ package dev.emir.e_commerce.api;
 
 import dev.emir.e_commerce.business.abstracts.ICategoryService;
 import dev.emir.e_commerce.core.config.modelMapper.IModelMapperService;
+import dev.emir.e_commerce.core.result.Result;
 import dev.emir.e_commerce.core.result.ResultData;
 import dev.emir.e_commerce.core.utilies.ResultHelper;
 import dev.emir.e_commerce.dto.request.category.CategorySaveRequest;
@@ -59,12 +60,19 @@ public class CategoryController {
 
     }
     @PutMapping()
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResultData<CategoryResponse> update(@Valid @RequestBody CategoryUpdateRequest categoryUpdateRequest){
-        this.categoryService.get(categoryUpdateRequest.getId()); //check the id
+
         Category updateCategory = modelMapperService.forRequest().map(categoryUpdateRequest, Category.class);
-        this.categoryService.save(updateCategory);
+        this.categoryService.update(updateCategory);
 
         return ResultHelper.success(this.modelMapperService.forResponse().map(updateCategory, CategoryResponse.class));
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Result delete(@PathVariable("id") int id){
+        this.categoryService.delete(id);
+        return ResultHelper.ok();
     }
 }

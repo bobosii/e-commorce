@@ -25,6 +25,10 @@ public class ResultHelper {
         return new Result(false,message,"400");
     }
 
+    public static Result ok(){
+        return new Result(true, Messages.OK, "200");
+    }
+
     public static <T> ResultData<CursorResponse<T>> cursor(Page<T> pageData){
 
         CursorResponse<T> cursor = new CursorResponse<>();
