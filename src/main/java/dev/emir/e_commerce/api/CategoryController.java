@@ -5,6 +5,7 @@ import dev.emir.e_commerce.core.config.modelMapper.IModelMapperService;
 import dev.emir.e_commerce.core.result.ResultData;
 import dev.emir.e_commerce.core.utilies.ResultHelper;
 import dev.emir.e_commerce.dto.request.category.CategorySaveRequest;
+import dev.emir.e_commerce.dto.request.category.CategoryUpdateRequest;
 import dev.emir.e_commerce.dto.response.CursorResponse;
 import dev.emir.e_commerce.dto.response.category.CategoryResponse;
 import dev.emir.e_commerce.entities.Category;
@@ -54,13 +55,16 @@ public class CategoryController {
                 map(category -> this.modelMapperService.forResponse().
                         map(category, CategoryResponse.class));
 
-        CursorResponse<CategoryResponse> cursor = new CursorResponse<>();
-        cursor.setItems(categoryResponsePage.getContent());
-        cursor.setPageNumber(categoryResponsePage.getNumber());
-        cursor.setPageSize(categoryPage.getSize());
-        cursor.setTotalElement(categoryResponsePage.getTotalElements());
+        return ResultHelper.cursor(categoryResponsePage);
 
-        return ResultHelper.success(cursor);
+    }
+    @PutMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResultData<CategoryResponse> update(@Valid @RequestBody CategoryUpdateRequest categoryUpdateRequest){
+        this.categoryService.get(categoryUpdateRequest.getId()); //check the id
+        Category updateCategory = modelMapperService.forRequest().map(categoryUpdateRequest, Category.class);
+        this.categoryService.save(updateCategory);
 
+        return ResultHelper.success(this.modelMapperService.forResponse().map(updateCategory, CategoryResponse.class));
     }
 }

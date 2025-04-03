@@ -2,7 +2,10 @@ package dev.emir.e_commerce.core.utilies;
 
 import dev.emir.e_commerce.core.result.Result;
 import dev.emir.e_commerce.core.result.ResultData;
+import dev.emir.e_commerce.dto.response.CursorResponse;
+import dev.emir.e_commerce.dto.response.category.CategoryResponse;
 import lombok.ToString;
+import org.springframework.data.domain.Page;
 
 @ToString
 public class ResultHelper {
@@ -20,5 +23,16 @@ public class ResultHelper {
     }
     public static Result notFoundError(String message){
         return new Result(false,message,"400");
+    }
+
+    public static <T> ResultData<CursorResponse<T>> cursor(Page<T> pageData){
+
+        CursorResponse<T> cursor = new CursorResponse<>();
+        cursor.setItems(pageData.getContent());
+        cursor.setPageNumber(pageData.getNumber());
+        cursor.setPageSize(pageData.getSize());
+        cursor.setTotalElement(pageData.getTotalElements());
+
+        return ResultHelper.success(cursor);
     }
 }
