@@ -1,7 +1,8 @@
-package dev.emir.e_commerce.core.config.modelMapper;
+package dev.emir.e_commerce.core.config;
 
+import dev.emir.e_commerce.core.config.exception.NotFoundException;
+import dev.emir.e_commerce.core.result.Result;
 import dev.emir.e_commerce.core.result.ResultData;
-import dev.emir.e_commerce.core.utilies.Messages;
 import dev.emir.e_commerce.core.utilies.ResultHelper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,10 @@ public class GlobalExceptionHandler {
                 collect(Collectors.toList());
 
         return new ResponseEntity<>(ResultHelper.validateError(validationErrorList), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Result> handleNotFound(NotFoundException e){
+        return new ResponseEntity<>(ResultHelper.notFoundError(e.getMessage()), HttpStatus.NOT_FOUND);
     }
 }
