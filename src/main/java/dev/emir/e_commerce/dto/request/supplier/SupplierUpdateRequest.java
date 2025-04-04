@@ -1,28 +1,22 @@
-package dev.emir.e_commerce.entities;
+package dev.emir.e_commerce.dto.request.supplier;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-@Entity
-@Table(name = "suppliers")
-public class Supplier {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "supplier_id")
+public class SupplierUpdateRequest {
+    @Positive
+    @NotNull
     private int id;
-
-    @Column(name = "supplier_company")
     private String companyName;
-
-    @Column(name = "supplier_contact")
     private String contactName;
-
-    @Column(name = "supplier_address")
     private String address;
-
-    @Column(name = "supplier_mail")
+    @Email
     private String contactMail;
 
-    public Supplier(int id, String companyName, String contactName, String address, String contactMail) {
+    public SupplierUpdateRequest(int id, String companyName, String contactName, String address, String contactMail) {
         this.id = id;
         this.companyName = companyName;
         this.contactName = contactName;
@@ -30,13 +24,13 @@ public class Supplier {
         this.contactMail = contactMail;
     }
 
-    public Supplier(){}
-
+    @Positive
+    @NotNull
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@Positive @NotNull int id) {
         this.id = id;
     }
 
@@ -64,11 +58,11 @@ public class Supplier {
         this.address = address;
     }
 
-    public String getContactMail() {
+    public @Email String getContactMail() {
         return contactMail;
     }
 
-    public void setContactMail(String contactMail) {
+    public void setContactMail(@Email String contactMail) {
         this.contactMail = contactMail;
     }
 }
