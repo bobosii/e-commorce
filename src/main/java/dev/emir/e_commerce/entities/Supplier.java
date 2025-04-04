@@ -2,6 +2,8 @@ package dev.emir.e_commerce.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "suppliers")
 public class Supplier {
@@ -21,6 +23,9 @@ public class Supplier {
 
     @Column(name = "supplier_mail")
     private String contactMail;
+
+    @OneToMany(mappedBy = "supplier")
+    private List<Product> productList;
 
     public Supplier(int id, String companyName, String contactName, String address, String contactMail) {
         this.id = id;
