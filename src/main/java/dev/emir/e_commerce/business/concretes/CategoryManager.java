@@ -5,7 +5,6 @@ import dev.emir.e_commerce.core.config.exception.NotFoundException;
 import dev.emir.e_commerce.core.utilies.Messages;
 import dev.emir.e_commerce.dao.CategoryRepo;
 import dev.emir.e_commerce.entities.Category;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
